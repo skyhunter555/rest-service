@@ -22,8 +22,10 @@ public class GreetingController {
     private static Logger LOG = LogManager.getLogger(GreetingController.class);
 
     @RequestMapping("/greeting")
-    public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-
+    @LogExecutionTime
+    public Greeting greeting(
+            @RequestParam(value = "name", defaultValue = "World") String name
+    ) {
         LOG.info("Request greeting name: {}", name);
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
