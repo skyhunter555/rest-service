@@ -2,3 +2,8 @@ server:
   port: 8088
 logging:
   config: classpath:log4j2.xml
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path=/swagger.json

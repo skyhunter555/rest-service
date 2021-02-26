@@ -16,7 +16,7 @@ import java.util.Arrays;
  * logExecutionTime
  *
  * @author Skyhunter
- * @date 16.02.2021
+ * @date 26.02.2021
  */
 @Component
 @Aspect
@@ -29,8 +29,8 @@ public class LogExecutionTimeAspect {
         String methodName = jp.getSignature().getName();
         String methodParams = Arrays.toString(jp.getArgs());
 
-        LOG.info("=======> Выполнение метода: {}", methodName);
-        LOG.info("Параметры метода: {}", methodParams);
+        LOG.info("=======> Run method: {}", methodName);
+        LOG.info("Method params: {}", methodParams);
     }
 
     @Around("@annotation(com.example.restservice.LogExecutionTime)")
@@ -39,8 +39,8 @@ public class LogExecutionTimeAspect {
         Object proceed = joinPoint.proceed();
         long executionTime = System.currentTimeMillis() - start;
 
-        LOG.info("{} выполнен за: {} мс", joinPoint.getSignature(), executionTime);
-        LOG.info("<======= Результат: {}", proceed);
+        LOG.info("{} total time: {} мс", joinPoint.getSignature(), executionTime);
+        LOG.info("<======= result: {}", proceed);
         return proceed;
     }
 }

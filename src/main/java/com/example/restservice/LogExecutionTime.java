@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * LogExecutionTime annotation
  *
  * @author Skyhunter
- * @date 16.02.2021
+ * @date 26.02.2021
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
