@@ -1,34 +1,35 @@
 package com.example.restservice.services;
 
+import com.example.restservice.dataproviders.h2.TestMessageRepository;
 import com.example.restservice.entities.TestMessage;
 import com.example.restservice.exceptions.TestMessageNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * TestMessageService implementation
  *
  * @author Skyhunter
- * @date 26.02.2021
+ * @date 02.03.2021
  */
 @Service
 public class TestMessageServiceImpl implements TestMessageService {
 
-    private final List<TestMessage> testMessageList = new ArrayList<>();
-    private final AtomicInteger messageCounter = new AtomicInteger();
+    private final TestMessageRepository testMessageRepository;
+
+    public TestMessageServiceImpl(TestMessageRepository testMessageRepository) {
+        this.testMessageRepository = testMessageRepository;
+    }
 
     @Override
     public List<TestMessage> findAll() {
-        return testMessageList;
+        return testMessageRepository.findAll();
     }
 
     @Override
     public TestMessage findById(Integer id) {
-        Optional<TestMessage> optionalTestMessage = testMessageList.stream().filter(foo -> foo.getId().equals(id)).findFirst();
+        Optional<TestMessage> optionalTestMessage = testMessageRepository.findById(id);
         if (!optionalTestMessage.isPresent()) {
             throw new TestMessageNotFoundException("Message not found by id");
         }
@@ -37,22 +38,19 @@ public class TestMessageServiceImpl implements TestMessageService {
 
     @Override
     public Integer create(TestMessage testMessage) {
-        testMessage.setId(messageCounter.incrementAndGet());
-        testMessageList.add(testMessage);
-        return testMessage.getId();
+        TestMessage newTestMessage = testMessageRepository.save(testMessage);
+        return newTestMessage.getId();
     }
 
     @Override
     public void update(Integer id, TestMessage testMessage) {
-        updateFields(testMessage, findById(id));
-    }
-
-    private void updateFields(TestMessage source, TestMessage target) {
-        target.setContent(source.getContent());
+        TestMessage messageForUpdate = findById(id);
+        messageForUpdate.setContent(testMessage.getContent());
+        testMessageRepository.save(messageForUpdate);
     }
 
     @Override
     public void deleteById(Integer id) {
-        testMessageList.remove(findById(id));
+        testMessageRepository.delete(findById(id));
     }
 }

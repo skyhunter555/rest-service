@@ -39,7 +39,7 @@ public class LogExecutionTimeAspect {
         Object proceed = joinPoint.proceed();
         long executionTime = System.currentTimeMillis() - start;
 
-        LOG.info("{} total time: {} мс", joinPoint.getSignature(), executionTime);
+        LOG.info("{} total time: {} ms", joinPoint.getSignature(), executionTime);
         LOG.info("<======= result: {}", proceed);
         return proceed;
     }
