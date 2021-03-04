@@ -34,7 +34,7 @@ http://localhost:8088/test-message/api/v1/</br>
 5. Вызов метода удаления сообщения</br>
 
 Ссылки на использованную документацию:
-https://docs.spring.io
+https://habr.com/ru/post/460377/
 
 ## Build
 mvn clean install
