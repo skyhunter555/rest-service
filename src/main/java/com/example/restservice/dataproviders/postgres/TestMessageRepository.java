@@ -1,4 +1,4 @@
-package com.example.restservice.dataproviders.h2;
+package com.example.restservice.dataproviders.postgres;
 
 import com.example.restservice.entities.TestMessage;
 import org.springframework.data.repository.CrudRepository;
@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 /**
- * TestMessageRepository interface for H2
+ * TestMessageRepository interface for Postgres
  *
  * @author Skyhunter
  * @date 02.03.2021
