@@ -24,7 +24,7 @@ public class TestMessage {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "content")
+    @Column(name = "content", unique = true)
     private String content;
 
 }

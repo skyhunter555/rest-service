@@ -4,16 +4,19 @@ import com.example.restservice.dataproviders.postgres.TestMessageRepository;
 import com.example.restservice.entities.TestMessage;
 import com.example.restservice.exceptions.TestMessageNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
 /**
- * TestMessageService implementation
+ * TestMessageService transactional implementation
  *
  * @author Skyhunter
  * @date 02.03.2021
  */
 @Service
+@Transactional
 public class TestMessageServiceImpl implements TestMessageService {
 
     private final TestMessageRepository testMessageRepository;
