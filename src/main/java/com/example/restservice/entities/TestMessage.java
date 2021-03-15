@@ -1,6 +1,10 @@
 package com.example.restservice.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,6 +20,9 @@ import javax.persistence.SequenceGenerator;
 @Entity
 @Table(name = "test_messages")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TestMessage {
 
     @Id

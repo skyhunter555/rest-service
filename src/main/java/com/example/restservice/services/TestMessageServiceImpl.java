@@ -1,6 +1,6 @@
 package com.example.restservice.services;
 
-import com.example.restservice.dataproviders.postgres.TestMessageRepository;
+import com.example.restservice.dataproviders.h2.TestMessageRepository;
 import com.example.restservice.entities.TestMessage;
 import com.example.restservice.exceptions.TestMessageNotFoundException;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.example.restservice.dataproviders.postgres;
+package com.example.restservice.dataproviders.h2;
 
 import com.example.restservice.entities.TestMessage;
 import org.springframework.data.repository.CrudRepository;
