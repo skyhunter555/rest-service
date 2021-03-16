@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-20210304.yaml
+  - changeSet:
+      id: 1
+      author: skyhunter
+      changes:
+        - createSequence:
+            sequenceName: test_messages_seq
+            startValue:  100
+        - createTable:
+            tableName: test_messages
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: content
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+  - changeSet:
+      id: 2
+      author: skyhunter
+      comment: "Create test messages"
+      changes:
+        - insert:
+            tableName: test_messages
+            columns:
+              - column:
+                  name: content
+                  value: "test111"
+        - insert:
+            tableName: test_messages
+            columns:
+              - column:
+                  name: content
+                  value: "test222"
+        - delete:
+            tableName: test_messages
+            where: id = 2
