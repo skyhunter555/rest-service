@@ -25,15 +25,15 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class TestMessageControllerTest {
+class TestMessageControllerTest {
 
     private static final Integer TEST_MESSAGE_ID = 1;
     private static final String TEST_MESSAGE_EXPECTED_CONTENT = "test111";
     private static final String TEST_MESSAGE_CREATED_CONTENT = "test_created";
     private static final String TEST_MESSAGE_UPDATED_CONTENT = "test_updated";
 
-    final TestMessage createdTestMessage = TestMessage.builder().content(TEST_MESSAGE_CREATED_CONTENT).build();
-    final TestMessage updatedTestMessage = TestMessage.builder().content(TEST_MESSAGE_UPDATED_CONTENT).build();
+    private final TestMessage createdTestMessage = TestMessage.builder().content(TEST_MESSAGE_CREATED_CONTENT).build();
+    private final TestMessage updatedTestMessage = TestMessage.builder().content(TEST_MESSAGE_UPDATED_CONTENT).build();
 
     @LocalServerPort
     private int port;
