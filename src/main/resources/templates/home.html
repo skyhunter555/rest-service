@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Spring Security Example</title>
+</head>
+<body>
+<table width="100%">
+    <tr>
+        <td align="center" valign="center">
+            <table align="center" width="230">
+                <tr>
+                    <td colspan="2" >
+                        <h2 th:inline="text">Вы успешно зашли в тестовое приложение под пользователем: [[${#httpServletRequest.remoteUser}]]!</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit" value="Выход"/>
+                        </form>
+                        <form th:action="@{/h2-console}" method="post">
+                            <input type="submit" value="h2-console"/>
+                        </form>
+                        <form th:action="@{/swagger-ui.html}" method="get">
+                            <input type="submit" value="swagger"/>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

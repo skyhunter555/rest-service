@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 /**
- * TestMessageRepository interface for Postgres
+ * TestMessageRepository interface for DB
  *
  * @author Skyhunter
  * @date 02.03.2021
