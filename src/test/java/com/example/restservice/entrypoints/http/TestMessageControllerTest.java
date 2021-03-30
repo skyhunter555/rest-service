@@ -1,21 +1,31 @@
 package com.example.restservice.entrypoints.http;
 
 import com.example.restservice.entities.TestMessage;
+import com.example.restservice.services.GetUserDetailsService;
+import com.example.restservice.services.TestMessageService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import java.util.ArrayList;
+import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * TestMessageController test
@@ -23,8 +33,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Skyhunter
  * @date 15.03.2021
  */
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@WebMvcTest(TestMessageController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class TestMessageControllerTest {
 
     private static final Integer TEST_MESSAGE_ID = 1;
@@ -32,87 +43,102 @@ class TestMessageControllerTest {
     private static final String TEST_MESSAGE_CREATED_CONTENT = "test_created";
     private static final String TEST_MESSAGE_UPDATED_CONTENT = "test_updated";
 
+    private final TestMessage testMessage = TestMessage.builder().id(TEST_MESSAGE_ID).content(TEST_MESSAGE_EXPECTED_CONTENT).build();
     private final TestMessage createdTestMessage = TestMessage.builder().content(TEST_MESSAGE_CREATED_CONTENT).build();
     private final TestMessage updatedTestMessage = TestMessage.builder().content(TEST_MESSAGE_UPDATED_CONTENT).build();
 
-    @LocalServerPort
-    private int port;
-
     @Autowired
-    private TestMessageController testMessageController;
+    private MockMvc mvc;
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+    @MockBean
+    private TestMessageService testMessageService;
 
-    @Test
-    @Order(0)
-    void contextLoads() {
-        assertThat(testMessageController).isNotNull();
-    }
-
+    @MockBean
+    private GetUserDetailsService getUserDetailsService;
 
     @Test
     @Order(1)
-    void findAll() {
-        ResponseEntity<TestMessage[]> response = restTemplate
-                .getForEntity(String.format("http://localhost:%s/test-message/api/v1", port), TestMessage[].class);
-        assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isNotNull();
-        TestMessage[] body = response.getBody();
-        assertThat(body.length).isEqualTo(1);
-        assertThat(body[0].getContent()).isEqualTo(TEST_MESSAGE_EXPECTED_CONTENT);
+    void findAll() throws Exception
+    {
+        List<TestMessage> mockTestMessages = new ArrayList<>();
+        mockTestMessages.add(testMessage);
+        Mockito.when(testMessageService.findAll()).thenReturn(mockTestMessages);
+
+        mvc.perform( MockMvcRequestBuilders
+                .get("/test-message/api/v1")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[*]", hasSize(1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(TEST_MESSAGE_ID));
     }
 
     @Test
     @Order(2)
-    void create() {
+    void create() throws Exception {
 
-        ResponseEntity<Integer> response = restTemplate
-                .postForEntity(String.format("http://localhost:%s/test-message/api/v1", port), new HttpEntity<>(createdTestMessage), Integer.class);
+        Mockito.when(testMessageService.create(createdTestMessage)).thenReturn(TEST_MESSAGE_ID);
 
-        assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-        assertThat(response.getBody()).isNotNull();
-        Integer body = response.getBody();
-        assertThat(body).isGreaterThan(TEST_MESSAGE_ID);
+        ObjectMapper mapper = new ObjectMapper();
+        String requestJson = mapper.writeValueAsString(createdTestMessage);
+
+        MvcResult result = mvc.perform( MockMvcRequestBuilders
+                .post("/test-message/api/v1")
+                .content(requestJson)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        String content = result.getResponse().getContentAsString();
+        assertThat(TEST_MESSAGE_ID.toString(), equalTo(content));
+
     }
+
 
     @Test
     @Order(3)
-    void update() {
-        ResponseEntity<?> response = restTemplate
-                .exchange(String.format("http://localhost:%s/test-message/api/v1/1", port),
-                        HttpMethod.PUT, new HttpEntity<>(updatedTestMessage), Object.class);
-        assertThat(response).isNotNull();
-        assertThat(response.getBody()).isNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    void update() throws Exception {
+
+        ObjectMapper mapper = new ObjectMapper();
+        String requestJson = mapper.writeValueAsString(updatedTestMessage);
+
+        mvc.perform( MockMvcRequestBuilders
+                .put("/test-message/api/v1/1")
+                .content(requestJson)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
     }
 
     @Test
     @Order(4)
-    void findById() {
+    void findById() throws Exception {
 
-        ResponseEntity<TestMessage> response = restTemplate
-                .getForEntity(String.format("http://localhost:%s/test-message/api/v1/1", port), TestMessage.class);
+        Mockito.when(testMessageService.findById(TEST_MESSAGE_ID)).thenReturn(testMessage);
 
-        assertThat(response).isNotNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isNotNull();
-        TestMessage body = response.getBody();
-        assertThat(body.getId()).isEqualTo(TEST_MESSAGE_ID);
+        mvc.perform( MockMvcRequestBuilders
+                .get("/test-message/api/v1/1")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(TEST_MESSAGE_ID))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content").value(TEST_MESSAGE_EXPECTED_CONTENT));
     }
 
     @Test
     @Order(5)
-    void deleteById() {
+    void deleteById() throws Exception {
 
-        ResponseEntity<?> response = restTemplate
-                .exchange(String.format("http://localhost:%s/test-message/api/v1/1", port),
-                        HttpMethod.DELETE, new HttpEntity<>(null), Object.class);
+        mvc.perform( MockMvcRequestBuilders
+                .delete("/test-message/api/v1/1")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
 
-        assertThat(response).isNotNull();
-        assertThat(response.getBody()).isNull();
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
+
 }
