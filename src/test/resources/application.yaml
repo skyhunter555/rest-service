@@ -8,19 +8,3 @@ springfox:
       v2:
         path=/swagger.json
 
-spring:
-  datasource:
-    url: "jdbc:h2:mem:testmessage"
-    username: "sa"
-    password: "sa"
-    driver-class-name: "org.h2.Driver"
-  jpa:
-    show-sql: true
-    hibernate.ddl-auto: "none"
-    properties:
-      hibernate:
-        jdbc.lob.non_contextual_creation: true
-        # Allows Hibernate to generate SQL optimized for a particular DBMS
-        dialect: "org.hibernate.dialect.H2Dialect"
-  liquibase:
-    change-log: classpath:/db/db.changelog-create.yaml

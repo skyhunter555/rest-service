@@ -8,12 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class RootController {
 
     @RequestMapping(name = "/", method = RequestMethod.GET)
-    public String home() {
-        return "home";
+    public String swaggerUi() {
+        return "redirect:/swagger-ui.html";
     }
-
-   // @RequestMapping(name = "/", method = RequestMethod.GET)
-  //  public String swaggerUi() {
-   //     return "redirect:/swagger-ui.html";
-   // }
 }
