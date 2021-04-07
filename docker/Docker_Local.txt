@@ -1,0 +1,67 @@
+[skyhunter@localhost integration_artemis]$ sudo yum install docker
+Updating Subscription Management repositories.
+Последняя проверка окончания срока действия метаданных: 2:29:39 назад, Ср 31 мар 2021 10:35:52.
+Зависимости разрешены.
+=======================================================================================================
+ Пакет          Архитектура
+                        Версия                                 Репозиторий                       Размер
+=======================================================================================================
+Установка:
+ podman-docker  noarch  2.2.1-7.module+el8.3.1+9857+68fb1526   rhel-8-for-x86_64-appstream-rpms   47 k
+
+Результат транзакции
+=======================================================================================================
+Установка  1 Пакет
+
+Объем загрузки: 47 k
+Объем изменений: 5.5 k
+Продолжить? [д/Н]: y
+Загрузка пакетов:
+podman-docker-2.2.1-7.module+el8.3.1+9857+68fb1526.noarch.rpm           50 kB/s |  47 kB     00:00    
+-------------------------------------------------------------------------------------------------------
+Общий размер                                                            50 kB/s |  47 kB     00:00     
+Проверка транзакции
+Проверка транзакции успешно завершена.
+Идет проверка транзакции
+Тест транзакции проведен успешно
+Выполнение транзакции
+  Подготовка       :                                                                               1/1 
+  Установка        : podman-docker-2.2.1-7.module+el8.3.1+9857+68fb1526.noarch                     1/1 
+  Запуск скриптлета: podman-docker-2.2.1-7.module+el8.3.1+9857+68fb1526.noarch                     1/1 
+  Проверка         : podman-docker-2.2.1-7.module+el8.3.1+9857+68fb1526.noarch                     1/1 
+Installed products updated.
+
+Установлен:
+  podman-docker-2.2.1-7.module+el8.3.1+9857+68fb1526.noarch                                            
+
+Выполнено!
+
+[skyhunter@localhost integration_artemis]$ sudo podman run -d hello-world
+1c00c8b936c5aff9249c73d87f143c461f62e64605c849137175653737904b84
+[skyhunter@localhost integration_artemis]$ podman ps
+CONTAINER ID  IMAGE   COMMAND  CREATED  STATUS  PORTS   NAMES
+[skyhunter@localhost integration_artemis]$ sudo podman run hello-world
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+[skyhunter@localhost integration_artemis]$ 
+

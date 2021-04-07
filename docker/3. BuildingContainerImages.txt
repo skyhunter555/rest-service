@@ -1,0 +1,68 @@
+$ docker build
+"docker build" requires exactly 1 argument.
+See 'docker build --help'.
+
+Usage:  docker build [OPTIONS] PATH | URL | - [flags]
+
+Build an image from a Dockerfile
+$ docker build -t nginxImage
+invalid argument "nginxImage" for "-t, --tag" flag: invalid reference format: repository name must be lowercase
+See 'docker build --help'.
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+redis               latest              4760dc956b2d        3 years ago         107MB
+ubuntu              latest              f975c5035748        3 years ago         112MB
+alpine              latest              3fd9065eaf02        3 years ago         4.14MB
+nginx               1.11-alpine         bedece1f06cc        4 years ago         54.3MB
+$ docker run -d -p 80:80 nginx
+Unable to find image 'nginx:latest' locally
+latest: Pulling from library/nginx
+75646c2fb410: Pull complete 
+6128033c842f: Pull complete 
+71a81b5270eb: Pull complete 
+b5fc821c48a1: Pull complete 
+da3f514a6428: Pull complete 
+3be359fed358: Pull complete 
+Digest: sha256:bae781e7f518e0fb02245140c97e6ddc9f5fcf6aecc043dd9d17e33aec81c832
+Status: Downloaded newer image for nginx:latest
+0c5ee80a1c1a0f45e70dcb243371c2b60260103e6ce6de0fc391d489ff882672
+$ curl -i http://docker
+HTTP/1.1 200 OK
+Server: nginx/1.19.9
+Date: Wed, 07 Apr 2021 10:10:44 GMT
+Content-Type: text/html
+Content-Length: 612
+Last-Modified: Tue, 30 Mar 2021 14:47:11 GMT
+Connection: keep-alive
+ETag: "606339ef-264"
+Accept-Ranges: bytes
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                NAMES
+0c5ee80a1c1a        nginx               "/docker-entrypoint.…"   17 seconds ago      Up 16 seconds       0.0.0.0:80->80/tcp   nifty_darwin
+$ 

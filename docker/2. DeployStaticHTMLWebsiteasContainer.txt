@@ -1,0 +1,20 @@
+$ docker build -t webserver-image:v1 .
+Sending build context to Docker daemon  3.072kB
+Step 1/2 : FROM nginx:alpine
+ ---> 72ab4137bd85
+Step 2/2 : COPY . /usr/share/nginx/html
+ ---> 703d50f2bace
+Successfully built 703d50f2bace
+Successfully tagged webserver-image:v1
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+webserver-image     v1                  703d50f2bace        6 seconds ago       22.6MB
+nginx               alpine              72ab4137bd85        5 days ago          22.6MB
+redis               latest              4760dc956b2d        3 years ago         107MB
+ubuntu              latest              f975c5035748        3 years ago         112MB
+alpine              latest              3fd9065eaf02        3 years ago         4.14MB
+$ docker run -d -p 80:80 webserver-image:v1
+671e849cd1caa1c912717af98686f8473260e7269e211eed2346aed7d17096c3
+$ curl docker
+<h1>Hello World</h1>
+$ 

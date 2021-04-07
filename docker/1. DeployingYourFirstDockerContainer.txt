@@ -1,0 +1,264 @@
+$ docker search redis
+NAME                             DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED
+redis                            Redis is an open source key-value store that…   9285                [OK]                
+bitnami/redis                    Bitnami Redis Docker Image                      177                                     [OK]
+sameersbn/redis                                                                  82                                      [OK]
+grokzen/redis-cluster            Redis cluster 3.0, 3.2, 4.0, 5.0, 6.0, 6.2      77                                      
+rediscommander/redis-commander   Alpine image for redis-commander - Redis man…   56                                      [OK]
+redislabs/redisearch             Redis With the RedisSearch module pre-loaded…   33                                      
+redislabs/redis                  Clustered in-memory database engine compatib…   29                                      
+redislabs/redisinsight           RedisInsight - The GUI for Redis                27                                      
+oliver006/redis_exporter          Prometheus Exporter for Redis Metrics. Supp…   24                                      
+redislabs/rejson                 RedisJSON - Enhanced JSON data type processi…   23                                      
+arm32v7/redis                    Redis is an open source key-value store that…   22                                      
+bitnami/redis-sentinel           Bitnami Docker Image for Redis Sentinel         21                                      [OK]
+redislabs/redisgraph             A graph database module for Redis               15                                      [OK]
+arm64v8/redis                    Redis is an open source key-value store that…   12                                      
+webhippie/redis                  Docker images for Redis                         11                                      [OK]
+insready/redis-stat              Docker image for the real-time Redis monitor…   10                                      [OK]
+s7anley/redis-sentinel-docker    Redis Sentinel                                  10                                      [OK]
+redislabs/redismod               An automated build of redismod - latest Redi…   9                                       [OK]
+goodsmileduck/redis-cli          redis-cli on alpine                             7                                       [OK]
+circleci/redis                   CircleCI images for Redis                       5                                       [OK]
+centos/redis-32-centos7          Redis in-memory data structure store, used a…   5                                       
+clearlinux/redis                 Redis key-value data structure server with t…   3                                       
+wodby/redis                      Redis container image with orchestration        1                                       [OK]
+tiredofit/redis                  Redis Server w/ Zabbix monitoring and S6 Ove…   1                                       [OK]
+xetamus/redis-resource           forked redis-resource                           0                                       [OK]
+$ docker run -d redis
+665c31fcf13ddbd9ce28a46f3f69d6f1112678ea78f418c35b909435c4e62179
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+665c31fcf13d        redis               "docker-entrypoint.s…"   6 seconds ago       Up 4 seconds        6379/tcp            dreamy_nobel
+$ docker inspect 665c31fcf13d
+[
+    {
+        "Id": "665c31fcf13ddbd9ce28a46f3f69d6f1112678ea78f418c35b909435c4e62179",
+        "Created": "2021-04-07T10:23:00.114531465Z",
+        "Path": "docker-entrypoint.sh",
+        "Args": [
+            "redis-server"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 1698,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2021-04-07T10:23:00.832887743Z",
+            "FinishedAt": "0001-01-01T00:00:00Z"
+        },
+        "Image": "sha256:4e8db158f18dc71307f95260e532df39a9b604b51d4e697468e82845c50cfe28",
+        "ResolvConfPath": "/var/lib/docker/containers/665c31fcf13ddbd9ce28a46f3f69d6f1112678ea78f418c35b909435c4e62179/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/665c31fcf13ddbd9ce28a46f3f69d6f1112678ea78f418c35b909435c4e62179/hostname",
+        "HostsPath": "/var/lib/docker/containers/665c31fcf13ddbd9ce28a46f3f69d6f1112678ea78f418c35b909435c4e62179/hosts",
+        "LogPath": "/var/lib/docker/containers/665c31fcf13ddbd9ce28a46f3f69d6f1112678ea78f418c35b909435c4e62179/665c31fcf13ddbd9ce28a46f3f69d6f1112678ea78f418c35b909435c4e62179-json.log",
+        "Name": "/dreamy_nobel",
+        "RestartCount": 0,
+        "Driver": "overlay",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "default",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "CapAdd": null,
+            "CapDrop": null,
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "shareable",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": null,
+            "BlkioDeviceWriteBps": null,
+            "BlkioDeviceReadIOps": null,
+            "BlkioDeviceWriteIOps": null,
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DiskQuota": 0,
+            "KernelMemory": 0,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": false,
+            "PidsLimit": 0,
+            "Ulimits": null,
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0
+        },
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay/ad63d20004353b8c1a7effe3670956776f288ca2c063cf8c3c29cb5c653f37b2/root",
+                "MergedDir": "/var/lib/docker/overlay/94e6555553c9bb931a82ae143c11a92f36b76784b8af508914facde36da6515a/merged",
+                "UpperDir": "/var/lib/docker/overlay/94e6555553c9bb931a82ae143c11a92f36b76784b8af508914facde36da6515a/upper",
+                "WorkDir": "/var/lib/docker/overlay/94e6555553c9bb931a82ae143c11a92f36b76784b8af508914facde36da6515a/work"
+            },
+            "Name": "overlay"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "4a84e3fa1a00803873b5f8b06671bf104c7d0a10d9207bae1007cc01250935df",
+                "Source": "/var/lib/docker/volumes/4a84e3fa1a00803873b5f8b06671bf104c7d0a10d9207bae1007cc01250935df/_data",
+                "Destination": "/data",
+                "Driver": "local",
+                "Mode": "",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "665c31fcf13d",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "6379/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "GOSU_VERSION=1.10",
+                "REDIS_VERSION=4.0.11",
+                "REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-4.0.11.tar.gz",
+                "REDIS_DOWNLOAD_SHA=fc53e73ae7586bcdacb4b63875d1ff04f68c5474c1ddeda78f00e5ae2eed1bbb"
+            ],
+            "Cmd": [
+                "redis-server"
+            ],
+            "ArgsEscaped": true,
+            "Image": "redis",
+            "Volumes": {
+                "/data": {}
+            },
+            "WorkingDir": "/data",
+            "Entrypoint": [
+                "docker-entrypoint.sh"
+            ],
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "9aa9608e3d3e46a3a4de898d130eaa0b2e4329061f349b13b0f7ceeef7cc3667",
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "Ports": {
+                "6379/tcp": null
+            },
+            "SandboxKey": "/var/run/docker/netns/9aa9608e3d3e",
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "3f57c6cb42f11313fabfea782061c02257743239490026575b671019262dab1c",
+            "Gateway": "172.18.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.18.0.2",
+            "IPPrefixLen": 24,
+            "IPv6Gateway": "",
+            "MacAddress": "02:42:ac:12:00:02",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "NetworkID": "a5b224daf6cb723f0a9cc3512e2ce703bebf2cf02cd9d2c27cb79d59562d9340",
+                    "EndpointID": "3f57c6cb42f11313fabfea782061c02257743239490026575b671019262dab1c",
+                    "Gateway": "172.18.0.1",
+                    "IPAddress": "172.18.0.2",
+                    "IPPrefixLen": 24,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "MacAddress": "02:42:ac:12:00:02",
+                    "DriverOpts": null
+                }
+            }
+        }
+    }
+]
+$ docker logs 665c31fcf13d
+1:C 07 Apr 10:23:00.885 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 07 Apr 10:23:00.886 # Redis version=4.0.11, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 07 Apr 10:23:00.886 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+1:M 07 Apr 10:23:00.889 * Running mode=standalone, port=6379.
+1:M 07 Apr 10:23:00.890 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+1:M 07 Apr 10:23:00.890 # Server initialized
+1:M 07 Apr 10:23:00.891 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:M 07 Apr 10:23:00.891 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
+1:M 07 Apr 10:23:00.892 * Ready to accept connections
+$ docker run -d --name redisHostPort -p 6379:6379 redis:latest
+0b53721fa21d3c493d264b6aacd4d832b6f5cb60dabb559139544403d99fc1a9
+$ docker run -d --name redisHostPort -p 6379:6379 redis:ldocker run -d --name redisDynamic -p 6379 redis:latestatest
+Unable to find image 'redis:ldocker' locally
+docker: Error response from daemon: manifest for redis:ldocker not found.
+See 'docker run --help'.
+$ docker port redisDynamic 6379
+Error: No such container: redisDynamic
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                    NAMES
+0b53721fa21d        redis:latest        "docker-entrypoint.s…"   20 seconds ago       Up 16 seconds       0.0.0.0:6379->6379/tcp   redisHostPort
+665c31fcf13d        redis               "docker-entrypoint.s…"   About a minute ago   Up About a minute   6379/tcp                 dreamy_nobel
+$ docker run -d --name redisMapped -v /opt/docker/data/redis:/data redis
+dd6d164d38e13a9af6cbda00c8c1aa6ea4d8b76615520f44af3a56926f0fef52
+$ docker run ubuntu ps
+  PID TTY          TIME CMD
+    1 ?        00:00:00 ps
+$ docker run -it ubuntu bash
+root@b66c102be455:/# 
