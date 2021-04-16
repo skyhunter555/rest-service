@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+    <id>bundle</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <baseDirectory>final-demo</baseDirectory>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+
+    <fileSets>
+       <fileSet>
+            <directory>.</directory>
+            <outputDirectory>FinalDemo</outputDirectory>
+            <includes>
+                <include>product-deploy.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>.</directory>
+            <outputDirectory>FinalDemo/final-demo</outputDirectory>
+            <includes>
+                <include>module-deploy.xml</include>
+                <include>module-version.xml</include>
+            </includes>
+        </fileSet>
+        <!-- documentation -->
+        <fileSet>
+            <directory>../documentation</directory>
+            <outputDirectory>FinalDemo/documentation</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>../service/target</directory>
+            <outputDirectory>FinalDemo/final-demo/services</outputDirectory>
+            <includes>
+                <include>*.war</include>
+                <include>*.jar</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+    <dependencySets>
+        <!-- database -->
+        <dependencySet>
+            <includes>
+                <include>ru.diasoft.digitalq:final-demo-db</include>
+            </includes>
+            <unpack>false</unpack>
+            <outputDirectory>FinalDemo/final-demo/database</outputDirectory>
+            <outputFileNameMapping>db-manager-${artifact.version}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet>
+    </dependencySets>
+</assembly>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+	
+    <property name="autoIncrement" value="false" dbms="postgresql,mssql,oracle"/>
+    <property name="autoIncrement" value="true" dbms="h2"/>
+
+    <changeSet id="1.0.1-createVerificationTable" author="skyhunter" context="update" runInTransaction="false" objectQuotingStrategy="LEGACY">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="sms_verification"/>
+            </not>
+        </preConditions>
+
+        <createSequence sequenceName="sms_verification_verificationid_seq"/>
+
+        <createTable tableName="sms_verification">
+            <column name="verificationid" type="numeric(19,0)" autoIncrement="${autoincrement}" defaultValueSequenceNext="sms_verification_verificationid_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="processguid" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phonenumber" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="secretcode" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="sms_verification" indexName="r01_sms_verification" unique="true">
+            <column name="processguid"/>
+        </createIndex>
+        <createIndex tableName="sms_verification" indexName="r02_sms_verification" unique="false">
+            <column name="secretcode"/>
+            <column name="status"/>
+        </createIndex>
+
+    </changeSet>
+		
+</databaseChangeLog>

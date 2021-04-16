@@ -1,0 +1,114 @@
+server:
+  port: 7081
+  servlet:
+    context-path: /${SERVICE_NAME:demows}
+
+eureka:
+  client:
+    enabled: true
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+security:
+  enabled: false
+  oauth2:
+    client:
+      clientId:
+      clientSecret:
+      scope:
+      accessTokenUri:
+      userAuthorizationUri:
+    resource:
+      jwt:
+        key-uri:
+        
+spring:
+ #Postgres
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/demo
+    username: "postgres"
+    password: "cnfkrth" #123456
+    hikari:
+      connection-test-query:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true # Для PostgreSQL установить в true, для MSSQL, Oracle в false
+        jdbc:
+          time_zone: UTC
+          lob:
+            non_contextual_creation: true
+
+  # Generate Events Publisher or Subsriber
+  kafka:
+    bootstrap-servers: localhost:9092
+  cloud:
+    stream:
+      binders:
+        binderName:
+          type: kafka
+      bindings:
+        smsVerificationCreatedPublish:
+          destination: sms-verification-created
+        smsVerificationDeliveredSubscribe:
+          destination: sms-verification-delivered
+    config:
+      discovery:
+        enabled: true
+
+  #messages:
+  #  basename: i18n.messages
+
+dstrace:
+  enabled: ${TRACER_ENABLE:false}
+  mode: ${TRACE_MODE:develop}
+  collector:
+    type: http
+    address: ${TRACER_HOST:localhost}:${TRACER_PORT:9411}
+
+ddslogging:
+  nesting-level-limit: ${LOGGING_NESTING_LEVEL_LIMIT:2}
+  items-on-level-limit: ${LOGGING_ITEMS_ON_LEVEL_LIMIT:100}
+  exclude-items: ${LOGGING_EXCLUDE_ITEMS:}
+  include-items: ${LOGGING_INCLUDE_ITEMS:}
+
+logging:
+  config: classpath:log4j2.xml
+  level:
+    ROOT: ${LOGGING_ROOT_LEVEL:INFO}
+    ru.diasoft.micro: ${LOGGING_LEVEL:DEBUG}
+    org.hibernate.type: ${LOGGING_HIBERNATE_LEVEL:INFO} #To log values set TRACE
+
+chaos:
+  monkey:
+    enabled: false
+    watcher:
+      component: false
+      controller: false
+      repository: false
+      rest-controller: true
+      service: true
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 300000
+        readTimeout: 300000
+
+rest-template:
+  config:
+    connectTimeout: 300000
+    readTimeout: 300000

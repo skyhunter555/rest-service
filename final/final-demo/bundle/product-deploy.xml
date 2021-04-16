@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<product>
+    <sysname>final-demo</sysname>
+    <name>final-demo</name>
+
+    <modules>
+        <module>
+            <sysname>final-demo</sysname>
+        </module>
+    </modules>
+</product>

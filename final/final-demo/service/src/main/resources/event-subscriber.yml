@@ -1,0 +1,20 @@
+asyncapi: 2.0.0
+info:
+  title: Demo application
+  version: '1.01.01'
+channels:
+  sms-verification-delivered:
+    subscribe:
+      message:
+        $ref: '#/components/messages/smsDeliveredMessage'
+components:
+  messages:
+    smsDeliveredMessage:
+      payload:
+        $ref: '#/components/schemas/smsDeliveredMessage'
+  schemas:
+    smsDeliveredMessage:
+      type: object
+      properties:
+        guid:
+          type: string
