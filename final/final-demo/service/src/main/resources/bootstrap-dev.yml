@@ -1,2 +1,6 @@
-mdp.discovery:
-  discoveryClientName: ${DISCOVERY_CLIENT_NAME:disable}
+spring:
+  application:
+    name: ${SERVICE_NAME:skyhunter-demo-service}
+
+#mdp.discovery:
+#  discoveryClientName: ${DISCOVERY_CLIENT_NAME:eureka}

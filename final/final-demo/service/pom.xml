@@ -72,8 +72,6 @@
                             <!--    -->
                             <restModuleSplit>true</restModuleSplit>
                             <useZonedDateTime>true</useZonedDateTime>
-                            <useReactiveApi>false</useReactiveApi>
-                            <useJsonNodeType>true</useJsonNodeType>
                         </configuration>
                     </execution>
                     <execution>
@@ -209,23 +207,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--plugin>
-                <groupId>ru.diasoft.maven</groupId>
-                <artifactId>dsdescrgenerator</artifactId>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>readme_generating</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${session.executionRootDirectory}</outputDirectory>
-                            <passportpageaddress>${passportpageaddress}</passportpageaddress>
-                            <parentPageId>${parentPageId}</parentPageId>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -380,6 +361,18 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>

@@ -6,21 +6,4 @@ eureka:
       defaultZone: http://localhost:8761/eureka
 spring:
   application:
-    name: gateway
-  cloud:
-    gateway:
-      routes:
-      - id: eureka-gui
-        uri: lb://servicediscovery
-        predicates:
-        - Path=/discovery/**
-        filters:
-        - StripPrefix=1
-      - id: eureka-static
-        uri: lb://servicediscovery
-        predicates:
-        - Path=/eureka/**
-      - id: demows
-        uri: lb://demows
-        predicates:
-        - Path=/demows/**
+    name: skyhunter-api-gateway

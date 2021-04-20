@@ -30,7 +30,8 @@ public class SmsVerificationPrimaryService implements SmsVerificationService {
 
     @Override
     public ResponseEntity<SmsVerificationCheckResponse> dsSmsVerificationCheck(SmsVerificationCheckRequest smsVerificationCheckRequest) {
-        Optional<SmsVerification> result = smsVerificationRepository.findBySecretCodeAndProcessGuidAndStatus(smsVerificationCheckRequest.getCode(),
+        Optional<SmsVerification> result =
+                smsVerificationRepository.findBySecretCodeAndProcessGuidAndStatus(smsVerificationCheckRequest.getCode(),
                 smsVerificationCheckRequest.getProcessGUID(), "OK");
         return ResponseEntity.status(HttpStatus.OK).body(new SmsVerificationCheckResponse(result.isPresent()));
     }

@@ -1,17 +1,7 @@
 server:
   port: 7081
   servlet:
-    context-path: /${SERVICE_NAME:demows}
-
-eureka:
-  client:
-    enabled: true
-    fetchRegistry: true
-    registerWithEureka: true
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka
-  instance:
-    prefer-ip-address: true
+    context-path: /
 
 security:
   enabled: false
@@ -27,6 +17,8 @@ security:
         key-uri:
         
 spring:
+  application:
+    name: skyhunter-demo-service
  #Postgres
   datasource:
     driverClassName: org.postgresql.Driver

@@ -1,11 +1,14 @@
 server:
   port: 8761
+spring:
+  application:
+    name: skyhunter-eureka-service
 eureka:
   client:
-    registerWithEureka: false
+    registerWithEureka: true
     fetchRegistry: false
   server:
-    waitTimeInMsWhenSyncEmpty: 0
+    wait-time-in-ms-when-sync-empty: 0
 logging:
   level:
     com:

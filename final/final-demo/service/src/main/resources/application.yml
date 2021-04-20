@@ -1,7 +1,7 @@
 server:
   port: ${SERVICE_PORT}
   servlet:
-    context-path: /${SERVICE_NAME:demo}
+    context-path: /${SERVICE_NAME:final-demo}
 
 security:
   enabled: true
@@ -17,6 +17,8 @@ security:
         key-uri: ${AUTH_SERVER_URL}/mdpauth/oauth/token_key
 
 spring:
+  application:
+    name: final-demo
   datasource:
     driverClassName: ${DB_DRIVER}
     url: ${DB_URL}
@@ -91,20 +93,4 @@ rest-template:
     connectTimeout: ${REST_TEMPLATE_CONNECT_TIMEOUT:300000}
     readTimeout: ${REST_TEMPLATE_READ_TIMEOUT:300000}
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-        #exclude: env,beans
-  metrics:
-    export:
-      atlas:
-        enabled: false
-eureka:
-  client:
-    enabled: true
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka
-  instance:
-    preferIpAddress: true
+
